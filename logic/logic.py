@@ -1214,13 +1214,11 @@ class Logic:
             # This way there is still a good chance it will not choose a new location.
             # Dungeons are prefered
             possible_location_weights = []
-            cumul_loc_weight = 0
             for location_name in accessible_undone_locations:
-                cumul_loc_weight += location_weights[location_name]
-                possible_location_weights.append(cumul_loc_weight)
+                possible_location_weights.append(location_weights[location_name])
 
             location_name = self.rando.rng.choices(
-                accessible_undone_locations, cum_weights=possible_location_weights, k=1
+                accessible_undone_locations, possible_location_weights, k=1
             )[0]
             self.set_location_to_item(location_name, item_name)
 
